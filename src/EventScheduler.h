@@ -11,6 +11,7 @@ class EventScheduler{
 	public:
 		void afegirEsdeveniment(Esdeveniment aux);
 		Esdeveniment tractarEsdeveniment();
-		
+		int llargariaCua();
+		int getStatistics();
 };
 #endif

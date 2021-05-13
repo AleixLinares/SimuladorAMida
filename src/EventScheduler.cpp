@@ -5,10 +5,16 @@
 using namespace std;
 int main(int argc, char * argv[])
 {
+	int maxIters = 10
 	EventScheduler ev = EventScheduler();
 	Esdeveniment prova = Esdeveniment();
 	ev.afegirEsdeveniment(prova);
-	cout<<ev.tractarEsdeveniment().time<<endl;
+	while(ev.llargariaCua()>0 && --maxiters>=0)
+	{
+		cout<<ev.tractarEsdeveniment().time<<endl;
+		cout<<maxiters<<endl;
+	}
+	cout<<ev.getStatistics()<<endl;
 }
 
 
@@ -19,5 +25,16 @@ void EventScheduler::afegirEsdeveniment(Esdeveniment aux)
 }
 Esdeveniment EventScheduler::tractarEsdeveniment()
 {
-	return eventList.front();
+	Esdeveniment aux = eventList.front();
+	currentTime += aux.time;
+	eventList.pop();
+	return aux;
+}
+int EventScheduler::llargariaCua()
+{
+	return eventList.size();
+}
+int EventScheduler::getStatistics()
+{
+	return currentTime;
 }
