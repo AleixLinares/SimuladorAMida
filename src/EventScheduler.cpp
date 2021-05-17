@@ -5,36 +5,36 @@
 using namespace std;
 int main(int argc, char * argv[])
 {
-	/*
+
 	int maxIters = 10;
 	EventScheduler ev = EventScheduler();
-	Esdeveniment prova = Esdeveniment();
+	Object* ob = new Object();
+	Esdeveniment* prova = new Esdeveniment(ob, Esdeveniment::Tipus::SIMULATION_START, 10);
 	ev.afegirEsdeveniment(prova);
-	while(ev.llargariaCua()>0 && --maxiters>=0)
+	while(ev.llargariaCua()>0 && --maxIters>=0)
 	{
-		cout<<ev.tractarEsdeveniment().time<<endl;
-		cout<<maxiters<<endl;
+		cout<<ev.processaNextEsdeveniment()->getTime()<<endl;
+		cout<<maxIters<<endl;
 	}
 	cout<<ev.getStatistics()<<endl;
-	*/
+
 }
 
 
 //Event List functions
-void EventScheduler::afegirEsdeveniment(Esdeveniment aux)
+void EventScheduler::afegirEsdeveniment(Esdeveniment* aux)
 {
 	eventList.push(aux);
-}
-Esdeveniment EventScheduler::tractarEsdeveniment()
-{
-	Esdeveniment aux = eventList.front();
-	currentTime += aux.time;
-	eventList.pop();
-	return aux;
 }
 int EventScheduler::llargariaCua()
 {
 	return eventList.size();
+}
+Esdeveniment* EventScheduler::processaNextEsdeveniment()
+{
+    Esdeveniment* aux = eventList.front();
+    eventList.pop();
+    return aux;
 }
 int EventScheduler::getStatistics()
 {

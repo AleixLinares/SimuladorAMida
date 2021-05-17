@@ -1,5 +1,5 @@
 #include "Esdeveniment.h"
-Esdeveniment::Esdeveniment(Object ob, Tipus tipus, float temps)
+Esdeveniment::Esdeveniment(Object* ob, Tipus tipus, float temps)
 {
 	time = temps;
 	objecte = ob;
@@ -7,5 +7,6 @@ Esdeveniment::Esdeveniment(Object ob, Tipus tipus, float temps)
 }
 void Esdeveniment::tractarEsdeveniment()
 {
-	objecte.tractarEsdeveniment(this);
+	objecte->tractarEsdeveniment(this);
 }
+float Esdeveniment::getTime(){ return time;}

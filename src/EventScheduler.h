@@ -1,17 +1,17 @@
-//#ifndef EVENTSCHEDULER_H_
+#ifndef EVENTSCHEDULER_H_
 #define EVENTSCHEDULER_H_
 
-#include <string>
 #include <queue>
 #include "Esdeveniment.h"
+#include "Object.h"
 using namespace std;
 class EventScheduler{
 	float currentTime =0;
-	queue<Esdeveniment> eventList;
+	queue<Esdeveniment*> eventList;
 	public:
-		void afegirEsdeveniment(Esdeveniment aux);
-		Esdeveniment tractarEsdeveniment();
+	    Esdeveniment* processaNextEsdeveniment();
+		void afegirEsdeveniment(Esdeveniment* aux);
 		int llargariaCua();
 		int getStatistics();
 };
-//#endif
+#endif
