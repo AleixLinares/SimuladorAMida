@@ -2,7 +2,7 @@ void Object::setEventScheduler(EventScheduler ev)
 {
 	eventScheduler = ev;
 }
-void Object::notificacioEsdeveniment(Esdeveniment esd)
+void Object::tractarEsdeveniment(Esdeveniment esd)
 {
 	//Tractar l'esdeveniment
 }

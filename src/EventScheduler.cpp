@@ -5,7 +5,8 @@
 using namespace std;
 int main(int argc, char * argv[])
 {
-	int maxIters = 10
+	/*
+	int maxIters = 10;
 	EventScheduler ev = EventScheduler();
 	Esdeveniment prova = Esdeveniment();
 	ev.afegirEsdeveniment(prova);
@@ -15,6 +16,7 @@ int main(int argc, char * argv[])
 		cout<<maxiters<<endl;
 	}
 	cout<<ev.getStatistics()<<endl;
+	*/
 }
 
 

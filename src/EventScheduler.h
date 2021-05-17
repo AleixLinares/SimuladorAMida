@@ -1,4 +1,4 @@
-#ifndef EVENTSCHEDULER_H_
+//#ifndef EVENTSCHEDULER_H_
 #define EVENTSCHEDULER_H_
 
 #include <string>
@@ -14,4 +14,4 @@ class EventScheduler{
 		int llargariaCua();
 		int getStatistics();
 };
-#endif
+//#endif

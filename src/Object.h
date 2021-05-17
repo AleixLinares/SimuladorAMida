@@ -3,14 +3,13 @@
 
 #include <string>
 #include <queue>
-#include "Esdeveniment.cpp"
-#include "EventScheduler.cpp"
+#include "EventScheduler.h"
 using namespace std;
 class Object{
 	private:
-	EventScheduler eventScheduler;
+		EventScheduler eventScheduler;
 	public:
 		void setEventScheduler(EventScheduler ev);
-		void notificacioEsdeveniment(Esdeveniment esd);
+		void tractarEsdeveniment(Esdeveniment esd);
 };
 #endif
