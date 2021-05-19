@@ -5,8 +5,5 @@ Esdeveniment::Esdeveniment(Object* ob, Tipus tipus, float temps)
 	objecte = ob;
 	this->tipus = tipus;
 }
-void Esdeveniment::tractarEsdeveniment()
-{
-	objecte->tractarEsdeveniment(this);
-}
 float Esdeveniment::getTime(){ return time;}
+Esdeveniment::Tipus Esdeveniment::getTipus(){return tipus;}

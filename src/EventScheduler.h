@@ -3,13 +3,16 @@
 
 #include <queue>
 #include "Esdeveniment.h"
-#include "Object.h"
+#include "Source.h"
+#include "Entitat.h"
 using namespace std;
 class EventScheduler{
 	float currentTime =0;
 	queue<Esdeveniment*> eventList;
+	void configurarModel();
 	public:
-	    Esdeveniment* processaNextEsdeveniment();
+	    Esdeveniment* donamEsdeveniment();
+	    void run();
 		void afegirEsdeveniment(Esdeveniment* aux);
 		int llargariaCua();
 		int getStatistics();

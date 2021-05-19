@@ -2,14 +2,14 @@
 #define ESDEVENIMENT_H_
 
 
-#include "Object.h"
+#include "forwardDeclarations.h"
 using namespace std;
 class Esdeveniment{
 	public:
 		enum Tipus { SIMULATION_START, NEXT_ARRIVAL, PROCESS, DELETE};
 		Esdeveniment(Object* ob, Tipus tipus, float temps);
-		void tractarEsdeveniment();
 		float getTime();
+		Tipus getTipus();
 	private:
 		Object* objecte;
 		Tipus tipus;

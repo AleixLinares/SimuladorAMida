@@ -1,7 +1,7 @@
 #ifndef OBJECT_H_
 #define OBJECT_H_
 
-#include "forwardDeclarations.h"
+#include "Esdeveniment.h"
 using namespace std;
 class Object{
 	private:
