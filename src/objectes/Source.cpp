@@ -1,4 +1,4 @@
-#include "Source.h"
+#include "../includeEveryThing.h"
 Source::Source(EventScheduler* ev)
 {
     setEventScheduler(ev);
@@ -23,13 +23,18 @@ void Source::tractarEsdeveniment(Esdeveniment* esd)
 }
 void Source::simulationStart()
 {
-
+    Esdeveniment* nou = properaArribada(0);
+    eventScheduler->afegirEsdeveniment(nou);
 }
 void Source::processNextArrival(Esdeveniment* esd)
 {
-
+    Entitat* ent = new Entitat();
+    //Passar pel peatge
 }
 Esdeveniment* Source::properaArribada(float time)
 {
-
+    float tempsEntreArribades = 5.0f;
+    entitatsCreades++;
+    state = State::WORKING;
+    return new Esdeveniment(this, Esdeveniment::Tipus::NEXT_ARRIVAL , time+tempsEntreArribades);
 }

@@ -1,8 +1,13 @@
 #ifndef SOURCE_H_
 #define SOURCE_H_
+
+#include "Entitat.h"
 #include "Object.h"
+
 class Source: public Object
 {
+    int entitatsCreades = 0;
+
 public:
     enum State { IDLE, WORKING};
     Source(EventScheduler* ev);

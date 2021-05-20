@@ -3,4 +3,7 @@
 class Object;
 class Esdeveniment;
 class EventScheduler;
+class Source;
+class Peatge;
+class Entitat;
 #endif

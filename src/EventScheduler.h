@@ -3,8 +3,8 @@
 
 #include <queue>
 #include "Esdeveniment.h"
-#include "Source.h"
-#include "Entitat.h"
+#include "./objectes/Source.h"
+#include "./objectes/Peatge.h"
 using namespace std;
 class EventScheduler{
 	float currentTime =0;

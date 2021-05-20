@@ -1,17 +1,23 @@
-main: EventScheduler.cpp EventScheduler.h Esdeveniment.o Object.o Entitat.o Source.o
-	g++ -g -Wall -o main.exe EventScheduler.cpp Object.o Entitat.o Source.o Esdeveniment.o
+main: EventScheduler.cpp Esdeveniment.o Object.o Entitat.o Source.o Peatge.o Queue.o
+	g++ -g -Wall -o main.exe EventScheduler.cpp ./compiled/Object.o ./compiled/Entitat.o ./compiled/Source.o ./compiled/Esdeveniment.o ./compiled/Peatge.o
 
-Entitat.o: Entitat.cpp Entitat.h
-	g++ -g -Wall -c Entitat.cpp
+Entitat.o: ./objectes/Entitat.cpp
+	g++ -g -Wall -c -o ./compiled/Entitat.o ./objectes/Entitat.cpp
 
-Object.o: Object.cpp Object.h
-	g++ -g -Wall -c Object.cpp
+Object.o: ./objectes/Object.cpp
+	g++ -g -Wall -c -o ./compiled/Object.o ./objectes/Object.cpp
 
-Source.o: Source.cpp Source.h Esdeveniment.o
-	g++ -g -Wall -c Source.cpp Esdeveniment.o
+Source.o: ./objectes/Source.cpp
+	g++ -g -Wall -c -o ./compiled/Source.o ./objectes/Source.cpp
 
-Esdeveniment.o: Esdeveniment.cpp Esdeveniment.h
-	g++ -g -Wall -c Esdeveniment.cpp
+Peatge.o: ./objectes/Peatge.cpp
+	g++ -g -Wall -c -o ./compiled/Peatge.o ./objectes/Peatge.cpp
+
+Peatge.o: ./objectes/Queue.cpp
+	g++ -g -Wall -c -o ./compiled/Queue.o ./objectes/Queue.cpp
+
+Esdeveniment.o: Esdeveniment.cpp
+	g++ -g -Wall -c -o ./compiled/Esdeveniment.o Esdeveniment.cpp
 
 .PHONY: clean
 clean:
