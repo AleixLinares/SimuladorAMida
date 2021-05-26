@@ -5,10 +5,13 @@
 class Queue: public Object
 {
     queue<Entitat*> cua;
+    Source* source;
+    Peatge* peatge;
     public:
+        void crearConnexio(Source* s, Peatge* p);
         void tractarEsdeveniment(Esdeveniment* esd);
-        void recullEntitat(float time, Entitat* et);
-        Entitat* alliberaEntitat(float time);
+        void recullEntitat(int time, Entitat* et);
+        Entitat* alliberaEntitat(int time);
         int getSize();
 };
 

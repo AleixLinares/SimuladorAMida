@@ -25,12 +25,12 @@ void Peatge::simulationStart()
     state = State::IDLE;
     entitatsProcessades = 0;
 }
-Esdeveniment* Peatge::programarFinalServei(float time, Entitat* ent)
+Esdeveniment* Peatge::programarFinalServei(int time, Entitat* ent)
 {
     int tempsServei = 2;
     entitatsProcessades++;
     state = State::WORKING;
-    return new Esdeveniment(this, Esdeveniment::Tipus::END_SERVICE, tempsServei);
+    return new Esdeveniment(this, Esdeveniment::Tipus::END_SERVICE, time + tempsServei);
 }
 void Peatge::processarFiServei(Esdeveniment* esd)
 {

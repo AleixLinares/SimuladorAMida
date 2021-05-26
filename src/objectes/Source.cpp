@@ -5,14 +5,18 @@ Source::Source(EventScheduler* ev)
     state =  State::IDLE;
 }
 
-void Source::crearConnexio(/*Peatge p*/)
+void Source::crearConnexio(Queue* p)
 {
-
+    cua = p;
+}
+void Source::setDistribution(int cTEA, int dTEA)
+{
+    centreTempsEntreArribades = cTEA;
+    desviacioTempsEntreArribades = dTEA;
 }
 void Source::tractarEsdeveniment(Esdeveniment* esd)
 {
     switch(esd->getTipus()){
-
         case Esdeveniment::Tipus::SIMULATION_START:
             simulationStart();
             break;
@@ -23,7 +27,7 @@ void Source::tractarEsdeveniment(Esdeveniment* esd)
 }
 void Source::simulationStart()
 {
-    Esdeveniment* nou = properaArribada(0);
+    Esdeveniment* nou = properaArribada(eventScheduler->getCurrentTime());
     eventScheduler->afegirEsdeveniment(nou);
 }
 void Source::processNextArrival(Esdeveniment* esd)
@@ -31,9 +35,9 @@ void Source::processNextArrival(Esdeveniment* esd)
     Entitat* ent = new Entitat();
     //Passar pel peatge
 }
-Esdeveniment* Source::properaArribada(float time)
+Esdeveniment* Source::properaArribada(int time)
 {
-    float tempsEntreArribades = 5.0f;
+    int tempsEntreArribades = 5;
     entitatsCreades++;
     state = State::WORKING;
     return new Esdeveniment(this, Esdeveniment::Tipus::NEXT_ARRIVAL , time+tempsEntreArribades);

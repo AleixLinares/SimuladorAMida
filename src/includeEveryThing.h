@@ -6,4 +6,4 @@
 #include "./objectes/Source.h"
 #include "./objectes/Peatge.h"
 #include "./objectes/Queue.h"
-
+#include "./objectes/Operari.h"

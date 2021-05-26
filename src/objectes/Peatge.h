@@ -14,7 +14,7 @@ class Peatge: public Object{
         void recullEntitat(Entitat* ent);
         void tractarEsdeveniment(Esdeveniment* esd);
         void simulationStart();
-        Esdeveniment* programarFinalServei(float time, Entitat* ent);
+        Esdeveniment* programarFinalServei(int time, Entitat* ent);
         void processarFiServei(Esdeveniment* esd);
 };
 

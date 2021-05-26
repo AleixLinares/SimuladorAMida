@@ -1,13 +1,18 @@
 #include "../includeEveryThing.h"
+void Queue::crearConnexio(Source* s, Peatge* p)
+{
+    source = s;
+    peatge = p;
+}
 void Queue::tractarEsdeveniment(Esdeveniment* esd)
 {
 
 }
-void Queue::recullEntitat(float time, Entitat* et)
+void Queue::recullEntitat(int time, Entitat* et)
 {
 
 }
-Entitat* Queue::alliberaEntitat(float time)
+Entitat* Queue::alliberaEntitat(int time)
 {
     if(cua.size()>=1)
     {

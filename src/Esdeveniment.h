@@ -7,13 +7,13 @@ using namespace std;
 class Esdeveniment{
 	public:
 		enum Tipus { SIMULATION_START, NEXT_ARRIVAL, PROCESS, DELETE, END_SERVICE};
-		Esdeveniment(Object* ob, Tipus tipus, float temps);
-		float getTime();
+		Esdeveniment(Object* ob, Tipus tipus, int temps);
+		int getTime();
 		Tipus getTipus();
 	private:
 		Object* objecte;
 		Tipus tipus;
-		float time;
+		int time;
 };
 #endif
 

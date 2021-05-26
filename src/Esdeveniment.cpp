@@ -1,9 +1,9 @@
 #include "Esdeveniment.h"
-Esdeveniment::Esdeveniment(Object* ob, Tipus tipus, float temps)
+Esdeveniment::Esdeveniment(Object* ob, Tipus tipus, int temps)
 {
 	time = temps;
 	objecte = ob;
 	this->tipus = tipus;
 }
-float Esdeveniment::getTime(){ return time;}
+int Esdeveniment::getTime(){ return time;}
 Esdeveniment::Tipus Esdeveniment::getTipus(){return tipus;}
