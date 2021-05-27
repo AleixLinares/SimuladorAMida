@@ -6,12 +6,12 @@
 #include <bits/stdc++.h>
 using namespace std;
 class EventScheduler{
-	int currentTime =0;
-	int tempsMaximExecucio = INT_MAX;
+	float currentTime =0;
+	float tempsMaximExecucio = FLT_MAX;
 	queue<Esdeveniment*> eventList;
 	void configurarModel();
 	public:
-	    int getCurrentTime();
+	    float getCurrentTime();
 	    Esdeveniment* donamEsdeveniment();
 	    void run();
 		void afegirEsdeveniment(Esdeveniment* aux);

@@ -1,5 +1,6 @@
-main: EventScheduler.o Esdeveniment.o Object.o Entitat.o Source.o Peatge.o Queue.o Operari.o
-	g++ -g -Wall -o main.exe ./compiled/EventScheduler.o ./compiled/Object.o ./compiled/Entitat.o ./compiled/Source.o ./compiled/Esdeveniment.o ./compiled/Peatge.o ./compiled/Operari.o
+main: EventScheduler.o Esdeveniment.o Object.o Entitat.o Source.o Peatge.o Queue.o Operari.o mates.o
+	#g++ -g -Wall -o main.exe ./compiled/EventScheduler.o ./compiled/Object.o ./compiled/Entitat.o ./compiled/Source.o ./compiled/Esdeveniment.o ./compiled/Peatge.o ./compiled/Operari.o ./compiled/mates.o ./compiled/Queue.o
+	g++ -g -Wall -o main.exe ./compiled/*.o
 EventScheduler.o: EventScheduler.cpp
 	g++ -g -Wall -c -o ./compiled/EventScheduler.o EventScheduler.cpp
 Entitat.o: ./objectes/Entitat.cpp
@@ -22,6 +23,9 @@ Operari.o: ./objectes/Operari.cpp
 
 Esdeveniment.o: Esdeveniment.cpp
 	g++ -g -Wall -c -o ./compiled/Esdeveniment.o Esdeveniment.cpp
+
+mates.o: ./mates/mates.cpp
+	g++ -g -Wall -c -o ./compiled/mates.o ./mates/mates.cpp
 
 .PHONY: clean
 clean:

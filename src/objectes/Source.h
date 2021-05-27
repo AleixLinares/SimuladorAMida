@@ -6,18 +6,18 @@ class Source: public Object
 {
     int entitatsCreades = 0;
     Queue* cua;
-    int centreTempsEntreArribades = 0, desviacioTempsEntreArribades = 0;
+    float centreTempsEntreArribades = 0, desviacioTempsEntreArribades = 0;
 public:
     enum State { IDLE, WORKING};
     Source(EventScheduler* ev);
     State state;
 
-    void setDistribution(int cTEA, int dTEA);
+    void setDistribution(float cTEA, float dTEA);
     void crearConnexio(Queue* q);
-    void tractarEsdeveniment(Esdeveniment* esd);
+    void tractarEsdeveniment(Esdeveniment* esd) override;
     void simulationStart();
     void processNextArrival(Esdeveniment* esd);
-    Esdeveniment* properaArribada(int time);
+    Esdeveniment* properaArribada(float time);
 };
 
 #endif // SOURCE_H_

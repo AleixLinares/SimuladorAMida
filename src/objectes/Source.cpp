@@ -9,13 +9,14 @@ void Source::crearConnexio(Queue* p)
 {
     cua = p;
 }
-void Source::setDistribution(int cTEA, int dTEA)
+void Source::setDistribution(float cTEA, float dTEA)
 {
     centreTempsEntreArribades = cTEA;
     desviacioTempsEntreArribades = dTEA;
 }
 void Source::tractarEsdeveniment(Esdeveniment* esd)
 {
+    cout<<"tractant esdeveniment source"<<endl;
     switch(esd->getTipus()){
         case Esdeveniment::Tipus::SIMULATION_START:
             simulationStart();
@@ -33,12 +34,19 @@ void Source::simulationStart()
 void Source::processNextArrival(Esdeveniment* esd)
 {
     Entitat* ent = new Entitat();
-    //Passar pel peatge
+    //Enviar a la cua
+    cua->recullEntitat(esd->getTime(), ent);
+    Esdeveniment* nou = properaArribada(eventScheduler->getCurrentTime());
+    eventScheduler->afegirEsdeveniment(nou);
 }
-Esdeveniment* Source::properaArribada(int time)
+Esdeveniment* Source::properaArribada(float time)
 {
-    int tempsEntreArribades = 5;
+    cout << "SOURCE: Creant nou objecte: ";
+    float tempsEntreArribades = mates::getRandomNormalFloat(centreTempsEntreArribades, desviacioTempsEntreArribades);
+    if(tempsEntreArribades<0) tempsEntreArribades = 0;
     entitatsCreades++;
     state = State::WORKING;
+    cout << "t: "<<tempsEntreArribades<<endl;
     return new Esdeveniment(this, Esdeveniment::Tipus::NEXT_ARRIVAL , time+tempsEntreArribades);
+
 }

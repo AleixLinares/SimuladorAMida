@@ -17,8 +17,11 @@ void EventScheduler::run()
 	{
 	    Esdeveniment* current = donamEsdeveniment();
         currentTime = current->getTime();
+        current->getObjecte()->tractarEsdeveniment(current);
 		cout<<current->getTipus()<<":"<<current->getTime()<<endl;
 		delete current;
+		std::this_thread::sleep_for(
+             std::chrono::milliseconds(1000));
 	}
 	cout<<getStatistics()<<endl;
 }
@@ -32,7 +35,7 @@ void EventScheduler::configurarModel()
 
 	//Configuració de la source
 	Source* source = new Source(this);
-	int centreTempsEntreArribades, desviacioEntreArribades;
+	float centreTempsEntreArribades, desviacioEntreArribades;
 	cout<<"indica la mitjana de la distribució normal del temps entre arribades: "<<endl;
 	cin>>centreTempsEntreArribades;
 	cout<<"indica la desviació de la distribució normal del temps entre arribades: "<<endl;
@@ -40,13 +43,13 @@ void EventScheduler::configurarModel()
     source->setDistribution(centreTempsEntreArribades, desviacioEntreArribades);
     Esdeveniment* prova = new Esdeveniment(source, Esdeveniment::Tipus::SIMULATION_START, currentTime);
     afegirEsdeveniment(prova);
-    /*
+
     //Configuracio de la cua
     Queue* cua = new Queue(this);
     source->crearConnexio(cua);
-
+    cua->crearConnexio(source);
     //Configuració dels peatges
-	int centreTempsProcessament, desviacioTempsProcessament;
+	float centreTempsProcessament, desviacioTempsProcessament;
 	cout<<"indica la mitjana de la distribució normal del temps de processament: "<<endl;
 	cin>>centreTempsProcessament;
 	cout<<"indica la desviació de la distribució normal del temps de processament: "<<endl;
@@ -55,8 +58,15 @@ void EventScheduler::configurarModel()
 	int numPeatges;
 	cout<<"indica el nombre de peatges"<<endl;
 	cin>>numPeatges;
-    */
-    int tempsMaximExecucioAux;
+
+    for(int i = 0; i<numPeatges; i++)
+    {
+        Peatge* peatge = new Peatge(this);
+        peatge->setDistribution(centreTempsProcessament, desviacioTempsProcessament);
+        cua->crearConnexio(peatge);
+    }
+
+    float tempsMaximExecucioAux;
     cout<<"indica el temps maxim d'execucio (-1 és infinit)"<<endl;
     cin>>tempsMaximExecucioAux;
     if(tempsMaximExecucioAux == -1) tempsMaximExecucio = INT_MAX;
@@ -71,7 +81,7 @@ int EventScheduler::llargariaCua()
 {
 	return eventList.size();
 }
-int EventScheduler::getCurrentTime()
+float EventScheduler::getCurrentTime()
 {
     return currentTime;
 }
