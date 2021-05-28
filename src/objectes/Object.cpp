@@ -1,4 +1,5 @@
 #include "Object.h"
+#include "../includeEveryThing.h"
 void Object::setEventScheduler(EventScheduler* ev)
 {
 	eventScheduler = ev;

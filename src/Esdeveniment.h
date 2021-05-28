@@ -11,10 +11,15 @@ class Esdeveniment{
 		float getTime();
 		Tipus getTipus();
 		Object* getObjecte();
+
 	private:
 		Object* objecte;
 		Tipus tipus;
 		float time;
+};
+struct CompareEsdeveniment
+{
+    bool operator()(Esdeveniment* lhs, Esdeveniment* rhs) const;
 };
 #endif
 

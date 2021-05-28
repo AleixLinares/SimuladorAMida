@@ -1,3 +1,4 @@
+#include "./Source.h"
 #include "../includeEveryThing.h"
 Source::Source(EventScheduler* ev)
 {
@@ -16,7 +17,7 @@ void Source::setDistribution(float cTEA, float dTEA)
 }
 void Source::tractarEsdeveniment(Esdeveniment* esd)
 {
-    cout<<"tractant esdeveniment source"<<endl;
+    cout<<"SOURCE: tractant esdeveniment"<<endl;
     switch(esd->getTipus()){
         case Esdeveniment::Tipus::SIMULATION_START:
             simulationStart();
@@ -33,6 +34,7 @@ void Source::simulationStart()
 }
 void Source::processNextArrival(Esdeveniment* esd)
 {
+    cout << "SOURCE: Creant nou objecte: ";
     Entitat* ent = new Entitat();
     //Enviar a la cua
     cua->recullEntitat(esd->getTime(), ent);
@@ -41,7 +43,7 @@ void Source::processNextArrival(Esdeveniment* esd)
 }
 Esdeveniment* Source::properaArribada(float time)
 {
-    cout << "SOURCE: Creant nou objecte: ";
+    cout << "SOURCE: Creant nova arribada: ";
     float tempsEntreArribades = mates::getRandomNormalFloat(centreTempsEntreArribades, desviacioTempsEntreArribades);
     if(tempsEntreArribades<0) tempsEntreArribades = 0;
     entitatsCreades++;

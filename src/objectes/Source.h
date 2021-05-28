@@ -1,7 +1,7 @@
 #ifndef SOURCE_H_
 #define SOURCE_H_
-
-#include "../includeEveryThing.h"
+#include "Object.h"
+#include "../forwardDeclarations.h"
 class Source: public Object
 {
     int entitatsCreades = 0;

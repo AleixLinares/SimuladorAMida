@@ -2,7 +2,8 @@
 #define QUEUE_H_
 #include <queue>
 #include <list>
-#include "entitat.h"
+#include "Object.h"
+#include "../forwardDeclarations.h"
 class Queue: public Object
 {
     queue<Entitat*> cua;

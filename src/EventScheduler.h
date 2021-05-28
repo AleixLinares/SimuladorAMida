@@ -2,13 +2,15 @@
 #define EVENTSCHEDULER_H_
 
 #include <queue>
-#include "./includeEveryThing.h"
+#include "forwardDeclarations.h"
+#include "Esdeveniment.h"
 #include <bits/stdc++.h>
 using namespace std;
 class EventScheduler{
 	float currentTime =0;
 	float tempsMaximExecucio = FLT_MAX;
-	queue<Esdeveniment*> eventList;
+	//queue<Esdeveniment*> eventList;
+	priority_queue<Esdeveniment*, vector<Esdeveniment*>, CompareEsdeveniment> eventList;
 	void configurarModel();
 	public:
 	    float getCurrentTime();

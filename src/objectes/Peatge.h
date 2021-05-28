@@ -1,22 +1,30 @@
 #ifndef PEATGE_H_
 #define PEATGE_H_
-#include "Entitat.h"
+#include "../forwardDeclarations.h"
 #include "Object.h"
+#include <list>
 class Peatge: public Object{
         int entitatsProcessades = 0;
         float centreTempsProcessament = 0, desviacioTempsProcessament  = 0;
+        Queue* cua;
+        list<Operari*> operaris;
     public:
-        enum State { IDLE, WORKING, WAITING};
+        int id = 0;
+        enum State { IDLE, BUSY, WAITING};
         Peatge(EventScheduler* ev);
         State state;
         Entitat* entitatActiva;
 
-        void crearConnexio(/*Operari o, Peatge p*/);
+        void crearConnexio(Queue* cua);
+        void crearConnexio(list<Operari*> op);
         void setDistribution(float cTP, float dTP);
-        void recullEntitat(Entitat* ent);
-        void tractarEsdeveniment(Esdeveniment* esd);
+        void recullEntitat(Entitat* ent, float time);
+        void tractarEsdeveniment(Esdeveniment* esd) override;
         void simulationStart();
-        Esdeveniment* programarFinalServei(float time, Entitat* ent);
+        void iniciarServei(float time);
+        void demanarOperari(float time);
+        void llancarIniciServei(Operari* op, float time);
+        Esdeveniment* programarFinalServei(float& time/*, Entitat* ent*/);
         void processarFiServei(Esdeveniment* esd);
 };
 
