@@ -25,12 +25,22 @@ void Source::tractarEsdeveniment(Esdeveniment* esd)
         case Esdeveniment::Tipus::NEXT_ARRIVAL:
             processNextArrival(esd);
             break;
+        case Esdeveniment::Tipus::SIMULATION_END:
+            simulationEnd();
+            break;
+        default: break;
     }
 }
 void Source::simulationStart()
 {
     Esdeveniment* nou = properaArribada(eventScheduler->getCurrentTime());
     eventScheduler->afegirEsdeveniment(nou);
+    entitatsCreades = 0;
+}
+void Source::simulationEnd()
+{
+    cout<<"mostrant estadistics de la SOURE"<<endl;
+    cout<<"entitatsCreades: "<<entitatsCreades<<endl;
 }
 void Source::processNextArrival(Esdeveniment* esd)
 {

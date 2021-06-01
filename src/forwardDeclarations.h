@@ -8,5 +8,6 @@ class Source;
 class Peatge;
 class Queue;
 class Operari;
+class Sink;
 class Entitat;
 #endif

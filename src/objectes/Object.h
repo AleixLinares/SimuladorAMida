@@ -8,6 +8,7 @@ class Object{
 	protected:
 		EventScheduler* eventScheduler;
 	public:
+	    virtual ~Object(){}
 		void setEventScheduler(EventScheduler* ev);
 		virtual void tractarEsdeveniment(Esdeveniment* esd);
 };

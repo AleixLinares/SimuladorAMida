@@ -10,4 +10,5 @@
 #include "./objectes/Source.h"
 #include "./objectes/Operari.h"
 #include "./objectes/Peatge.h"
+#include "./objectes/Sink.h"
 #include <iostream>

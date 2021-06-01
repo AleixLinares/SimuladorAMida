@@ -25,20 +25,31 @@ void Operari::tractarEsdeveniment(Esdeveniment* esd)
         case Esdeveniment::Tipus::SIMULATION_START:
             simulationStart();
             break;
-        case Esdeveniment::Tipus::NEXT_ARRIVAL:
-            //processNextArrival(esd);
         case Esdeveniment::Tipus::END_SERVICE:
             processarFiServei(esd);
             break;
+        case Esdeveniment::Tipus::SIMULATION_END:
+            simulationEnd(esd);
+            break;
+        default: break;
     }
 }
 void Operari::simulationStart()
 {
     state = State::IDLE;
     clientsServits = 0;
+    timeWorking = 0;
+}
+void Operari::simulationEnd(Esdeveniment* esd)
+{
+    cout<<"Estadistics OPERARI: "<<id<<endl;
+    cout<<"Clients servits: "<<clientsServits<<endl;
+    float currentTime = esd->getTime();
+    cout<<"pergentatge de temps ocupat: "<<timeWorking*100/currentTime<<"%"<<endl;
 }
 void Operari::processarFiServei(Esdeveniment* esd)
 {
+    clientsServits++;
     cout<<"OPERARI "<<id<<": servei acabat"<<endl;
     if(cuaServei.empty())
     {
@@ -71,7 +82,6 @@ void Operari::operariNoTrobat(Peatge* p)
 Esdeveniment* Operari::programarFinalServei(float finishTime)
 {
     cout<<"OPERARI "<<id<<": nou fi servei programat. finishTime:"<<finishTime<<endl;
-    clientsServits++;
     state = State::BUSY;
     return new Esdeveniment(this, Esdeveniment::Tipus::END_SERVICE, finishTime);
 }

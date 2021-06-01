@@ -13,7 +13,8 @@ int main(int argc, char * argv[])
 void EventScheduler::run()
 {
     configurarModel();
-	while(llargariaCua()>0 && currentTime<tempsMaximExecucio)
+    string stop = "a";
+	while(llargariaCua()>0 && currentTime<tempsMaximExecucio&& stop != "s")
 	{
 	    cout<<"TRACTANT NOU ESDEVENIMENT..."<<endl;
 	    Esdeveniment* current = donamEsdeveniment();
@@ -23,38 +24,42 @@ void EventScheduler::run()
 		cout<<"Temps esdeveniment finalitzat: "<<current->getTime()<<endl<<endl;
 		delete current;
 		std::this_thread::sleep_for(
-             std::chrono::milliseconds(2500));
+             std::chrono::milliseconds(timeBetweenEvents));
+        if(tempsMaximExecucio == INT_MAX)getline(std::cin, stop);
+
 	}
-	cout<<getStatistics()<<endl;
+	getStatistics();
 }
 //Configura el model abans de que el començem a fer servir
 void EventScheduler::configurarModel()
-{/*
-    Source* ob = new Source(this);
-	Esdeveniment* prova = new Esdeveniment(ob, Esdeveniment::Tipus::SIMULATION_START, currentTime+10);
-	afegirEsdeveniment(prova);*/
+{
 
+    llistaObjectes.clear();
 
 	//Configuració de la source
 	Source* source = new Source(this);
 	float centreTempsEntreArribades, desviacioEntreArribades;
+	llistaObjectes.push_back(source);
 	cout<<"indica la mitjana de la distribució normal del temps entre arribades: "<<endl;
 	cin>>centreTempsEntreArribades;
 	cout<<"indica la desviació de la distribució normal del temps entre arribades: "<<endl;
 	cin>>desviacioEntreArribades;
     source->setDistribution(centreTempsEntreArribades, desviacioEntreArribades);
-    Esdeveniment* prova = new Esdeveniment(source, Esdeveniment::Tipus::SIMULATION_START, currentTime);
-    afegirEsdeveniment(prova);
+    Esdeveniment* aux = new Esdeveniment(source, Esdeveniment::Tipus::SIMULATION_START, currentTime);
+    afegirEsdeveniment(aux);
 
     //Configuracio de la cua
     Queue* cua = new Queue(this);
+    aux = new Esdeveniment(cua, Esdeveniment::Tipus::SIMULATION_START, currentTime);
+    llistaObjectes.push_back(cua);
+    afegirEsdeveniment(aux);
     source->crearConnexio(cua);
     cua->crearConnexio(source);
     //Configuració dels peatges
 	float centreTempsProcessament, desviacioTempsProcessament;
-	cout<<"indica la mitjana de la distribució normal del temps de processament: "<<endl;
+	cout<<"indica la mitjana de la distribucio normal del temps de processament: "<<endl;
 	cin>>centreTempsProcessament;
-	cout<<"indica la desviació de la distribució normal del temps de processament: "<<endl;
+	cout<<"indica la desviacio de la distribucio normal del temps de processament: "<<endl;
 	cin>>desviacioTempsProcessament;
 
 	int numPeatges;
@@ -69,8 +74,11 @@ void EventScheduler::configurarModel()
         cua->crearConnexio(peatge);
         peatge->crearConnexio(cua);
         peatges.push_back(peatge);
+        aux = new Esdeveniment(peatge, Esdeveniment::Tipus::SIMULATION_START, currentTime);
+        llistaObjectes.push_back(peatge);
+        afegirEsdeveniment(aux);
     }
-
+    //Connexio operaris
     int numOperaris;
 	cout<<"indica el nombre d'operaris"<<endl;
 	cin>>numOperaris;
@@ -78,6 +86,9 @@ void EventScheduler::configurarModel()
     for(int i = 0; i<numOperaris; i++)
     {
         Operari* operari= new Operari(this);
+        aux = new Esdeveniment(operari, Esdeveniment::Tipus::SIMULATION_START, currentTime);
+        llistaObjectes.push_back(operari);
+        afegirEsdeveniment(aux);
         operari->id = i+1;
         operari->crearConnexio(peatges);
         operaris.push_back(operari);
@@ -87,12 +98,31 @@ void EventScheduler::configurarModel()
     {
         (*it)->crearConnexio(operaris);
     }
+
+    //Configuracio sink
+    Sink* sink = new Sink(this);
+    aux = new Esdeveniment(sink, Esdeveniment::Tipus::SIMULATION_START, currentTime);
+    llistaObjectes.push_back(sink);
+    afegirEsdeveniment(aux);
+    for (it = peatges.begin(); it != peatges.end(); ++it)
+    {
+        (*it)->crearConnexio(sink);
+    }
+    //Configuracio seed
+    unsigned long n;
+    cout<<"indica la llavor del generador de nombres aleatoris"<<endl;
+    cin>>n;
+    mates::setSeed(n);
+
     float tempsMaximExecucioAux;
     cout<<"indica el temps maxim d'execucio (-1 és infinit)"<<endl;
     cin>>tempsMaximExecucioAux;
     if(tempsMaximExecucioAux == -1) tempsMaximExecucio = INT_MAX;
     else tempsMaximExecucio = tempsMaximExecucioAux;
 
+    int tbe = 0;
+    cout<<"Indica el temps entre la mostra dels esdeveniments"<<endl;
+    cin>>tbe;
 }
 void EventScheduler::afegirEsdeveniment(Esdeveniment* aux)
 {
@@ -101,6 +131,10 @@ void EventScheduler::afegirEsdeveniment(Esdeveniment* aux)
 int EventScheduler::llargariaCua()
 {
 	return eventList.size();
+}
+void EventScheduler::reiniciarCua()
+{
+	eventList = priority_queue<Esdeveniment*, vector<Esdeveniment*>, CompareEsdeveniment>();
 }
 float EventScheduler::getCurrentTime()
 {
@@ -112,7 +146,15 @@ Esdeveniment* EventScheduler::donamEsdeveniment()
     eventList.pop();
     return aux;
 }
-int EventScheduler::getStatistics()
+void EventScheduler::getStatistics()
 {
-	return currentTime;
+    reiniciarCua();
+	cout<<"currentTime: "<<currentTime<<endl;
+	std::list<Object*>::iterator it;
+    for (it = llistaObjectes.begin(); it != llistaObjectes.end(); ++it)
+    {
+        Esdeveniment* aux = new Esdeveniment((*it), Esdeveniment::Tipus::SIMULATION_END, currentTime);
+        aux->getObjecte()->tractarEsdeveniment(aux);
+		delete aux;
+    }
 }

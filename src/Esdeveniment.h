@@ -6,7 +6,7 @@
 using namespace std;
 class Esdeveniment{
 	public:
-		enum Tipus { SIMULATION_START, NEXT_ARRIVAL, PROCESS, DELETE, END_SERVICE};
+		enum Tipus { SIMULATION_START, NEXT_ARRIVAL, END_SERVICE, SIMULATION_END};
 		Esdeveniment(Object* ob, Tipus tipus, float temps);
 		float getTime();
 		Tipus getTipus();

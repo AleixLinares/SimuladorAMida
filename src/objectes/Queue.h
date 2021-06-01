@@ -7,8 +7,11 @@
 class Queue: public Object
 {
     queue<Entitat*> cua;
+    queue<float> entryCurrentTime;
     Source* source;
     list<Peatge*> peatges;
+    int entitatsCreuades;
+    float totalStayTime, maxStayTime, minStayTime;
     public:
         enum State { EMPTY, NO_EMPTY};
         Queue(EventScheduler* ev);
@@ -18,6 +21,7 @@ class Queue: public Object
         void tractarEsdeveniment(Esdeveniment* esd) override;
         void recullEntitat(float time, Entitat* et);
         void simulationStart();
+        void simulationEnd();
         Entitat* alliberaEntitat(float time);
         int getSize();
 };

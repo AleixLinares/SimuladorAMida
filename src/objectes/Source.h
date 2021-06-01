@@ -16,6 +16,7 @@ public:
     void crearConnexio(Queue* q);
     void tractarEsdeveniment(Esdeveniment* esd) override;
     void simulationStart();
+    void simulationEnd();
     void processNextArrival(Esdeveniment* esd);
     Esdeveniment* properaArribada(float time);
 };
