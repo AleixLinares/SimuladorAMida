@@ -85,7 +85,7 @@ void Peatge::llancarIniciServei(Operari* op, float time)
     Esdeveniment* esdevAux = programarFinalServei(time);
     //Ens tornara el temps final de l'esdeveniment, ja que li hem passat per referencia.
     eventScheduler->afegirEsdeveniment(esdevAux);
-    cout<<operariActiu->Operari::id<<endl;
+    cout<<"PEATGE "<<id<<": id operari actiu: "<<operariActiu->Operari::id<<endl;
     esdevAux = operariActiu->Operari::programarFinalServei(time);
     eventScheduler->afegirEsdeveniment(esdevAux);
 }

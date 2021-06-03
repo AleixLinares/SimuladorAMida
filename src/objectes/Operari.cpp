@@ -70,7 +70,10 @@ bool Operari::iNeedYou(float time)
     if(aux)
     {
         state = State::BUSY;
-        cout<<"OPERARI "<<id<<": operari solicitat. disponible: "<<aux<<endl;
+        cout<<"OPERARI "<<id<<": operari solicitat. disponible: ";
+        if(aux) cout<<"si";
+        else cout<<"no";
+        cout<<endl;
     }
     return aux;
 }
