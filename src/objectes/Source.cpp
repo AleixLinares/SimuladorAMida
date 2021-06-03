@@ -3,7 +3,6 @@
 Source::Source(EventScheduler* ev)
 {
     setEventScheduler(ev);
-    state =  State::IDLE;
 }
 
 void Source::crearConnexio(Queue* p)
@@ -57,7 +56,6 @@ Esdeveniment* Source::properaArribada(float time)
     float tempsEntreArribades = mates::getRandomNormalFloat(centreTempsEntreArribades, desviacioTempsEntreArribades);
     if(tempsEntreArribades<0) tempsEntreArribades = 0;
     entitatsCreades++;
-    state = State::WORKING;
     cout << "t: "<<tempsEntreArribades<<endl;
     return new Esdeveniment(this, Esdeveniment::Tipus::NEXT_ARRIVAL , time+tempsEntreArribades);
 

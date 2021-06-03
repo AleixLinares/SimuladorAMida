@@ -1,5 +1,3 @@
-
-
 #include "forwardDeclarations.h"
 #include "EventScheduler.h"
 #include "Esdeveniment.h"

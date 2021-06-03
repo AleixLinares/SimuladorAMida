@@ -12,10 +12,6 @@ class Source: public Object
     //Configuració del generador de nombres aleatoris
     float centreTempsEntreArribades = 0, desviacioTempsEntreArribades = 0;
 public:
-    //Possibles estats
-    enum State { IDLE, WORKING};
-    //Estat actual
-    State state;
     //Creadora
     Source(EventScheduler* ev);
 

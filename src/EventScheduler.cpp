@@ -8,8 +8,8 @@ int main(int argc, char * argv[])
 	EventScheduler ev = EventScheduler();
 	ev.run();
 }
-//Event List functions
-//Funció principal
+//Fincions Event List
+//Bucle principal
 void EventScheduler::run()
 {
     configurarModel();
@@ -30,7 +30,7 @@ void EventScheduler::run()
 	}
 	getStatistics();
 }
-//Configura el model abans de que el començem a fer servir
+//Configura el model abans de que el començem a fer servir (demana també l'input de l'usuari)
 void EventScheduler::configurarModel()
 {
 
@@ -124,28 +124,35 @@ void EventScheduler::configurarModel()
     cout<<"Indica el temps entre la mostra dels esdeveniments"<<endl;
     cin>>tbe;
 }
+//Afegeix un esdeveniment a la cua d'esdeveniments
 void EventScheduler::afegirEsdeveniment(Esdeveniment* aux)
 {
 	eventList.push(aux);
 }
+//Retorna la llargaria de la cua d'esdeveniments
 int EventScheduler::llargariaCua()
 {
 	return eventList.size();
 }
+//Esborra tots els elements de la cua d'esdeveniments
 void EventScheduler::reiniciarCua()
 {
+    //Cua d'esdeveniments ordenada sobre un metode propi(veure classe Esdeveniment)
 	eventList = priority_queue<Esdeveniment*, vector<Esdeveniment*>, CompareEsdeveniment>();
 }
+//Retorna el temps actual de simulació (el de l'ultim esdeveniment)
 float EventScheduler::getCurrentTime()
 {
     return currentTime;
 }
+//Retorna el pròxim esdeveniment de la cua i l'esborra d'aquesta
 Esdeveniment* EventScheduler::donamEsdeveniment()
 {
     Esdeveniment* aux = eventList.top();
     eventList.pop();
     return aux;
 }
+//Escriu el current time i dispara l'esdeveniment de final de simulacio a tots els objectes.
 void EventScheduler::getStatistics()
 {
     reiniciarCua();
